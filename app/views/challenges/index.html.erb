@@ -1,0 +1,47 @@
+
+<%if current_emp%>
+<%= link_to "logout", destroy_emp_session_path, method: :delete %>
+<%=form_with model: Challenge do |form|%>
+<%=form.text_field :title, placeholder: "Title"%> <br>
+<%=form.text_field :description, placeholder: "desciption"%><br>
+<%=form.text_field :emp_id, value:current_emp.id%><br>
+<%=form.submit "Add Challenges"%>
+<% end %>
+<%else%>
+    <%= link_to "login", new_emp_session_path%>
+<% end %>
+
+
+<h1>Challenges</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Emp</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @challenges.each do |challenge| %>
+      <tr>
+        <td><%= challenge.title %></td>
+        <td><%= challenge.description %></td>
+        <td><%= challenge.emp_id %></td>
+        <td><%= link_to 'Show', challenge %></td>
+        <% if current_emp %>
+          <%if current_emp.id == challenge.emp_id%>
+            <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
+            <td><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>  
+        <% end %>        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%if current_emp%>
+<%= link_to 'New Challenge', new_challenge_path %>
+<%end%>
