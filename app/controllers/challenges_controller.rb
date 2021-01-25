@@ -24,11 +24,16 @@ class ChallengesController < ApplicationController
   # POST /challenges
   # POST /challenges.json
   def create
-    @challenge = Challenge.new(challenge_params)
-    #@challenge = current_emp.challanges.build(title: params[:challenge][:title],description: params[:challenge][:title])
+    #@challenge = Challenge.new(challenge_params)
+    @challenge = current_emp.challenges.build(title: params[:challenge][:title],description: params[:challenge][:title])
 
     respond_to do |format|
       if @challenge.save
+        tag_string = params[:challenge][:tag_name]
+        tag_array = tag_string.split(",")
+        tag_array.each do |tag_name|
+          @challenge.tags.create(name: tag_name)
+        end
         format.html { redirect_to @challenge, notice: 'Challenge was successfully created.' }
         format.json { render :show, status: :created, location: @challenge }
       else
@@ -70,6 +75,6 @@ class ChallengesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def challenge_params
-      params.require(:challenge).permit(:title, :description, :emp_id)
+      params.require(:challenge).permit(:title, :description, :emp_id, :tag_name)
     end
 end
