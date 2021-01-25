@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_042605) do
+ActiveRecord::Schema.define(version: 2021_01_25_050211) do
 
   create_table "challenges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
@@ -43,6 +43,17 @@ ActiveRecord::Schema.define(version: 2021_01_25_042605) do
     t.index ["challenge_id"], name: "index_tags_on_challenge_id"
   end
 
+  create_table "votes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "emp_id", null: false
+    t.bigint "challenge_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["challenge_id"], name: "index_votes_on_challenge_id"
+    t.index ["emp_id"], name: "index_votes_on_emp_id"
+  end
+
   add_foreign_key "challenges", "emps"
   add_foreign_key "tags", "challenges"
+  add_foreign_key "votes", "challenges"
+  add_foreign_key "votes", "emps"
 end

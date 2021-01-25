@@ -29,13 +29,13 @@ class ChallengesController < ApplicationController
 
     respond_to do |format|
       if @challenge.save
-        tag_string = params[:challenge][:tag_name]
+        tag_string = params[:challenge][:tag]
         tag_array = tag_string.split(",")
         tag_array.each do |tag_name|
           @challenge.tags.create(name: tag_name)
         end
         format.html { redirect_to @challenge, notice: 'Challenge was successfully created.' }
-        format.json { render :show, status: :created, location: @challenge }
+        format.json { render :show, status: :created, location: @challenge.tags }
       else
         format.html { render :new }
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
@@ -75,6 +75,6 @@ class ChallengesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def challenge_params
-      params.require(:challenge).permit(:title, :description, :emp_id, :tag_name)
+      params.require(:challenge).permit(:title, :description, :emp_id, :tag)
     end
 end

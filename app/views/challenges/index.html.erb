@@ -1,15 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<a class="navbar-brand" href="#">Home</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarText">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link ml-2" href="#">Hackthon<span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  <span class="navbar-text">
+    <% if current_emp %>
+       <%= link_to "#{current_emp.empid} Sign Out", destroy_emp_session_path, method: :delete %>
+    <% else %>
+       <span class="button1"><%= link_to "Login", new_emp_session_path, method: :post %></span>
+       <span class="button2"><%= link_to "Sign Up", new_emp_registration_path %></span>
+    <% end %>
+  </span>
+</div>
+</nav>
+
 <%if current_emp %>
-  <h1>Add Challenge </h1>
-  <%= link_to "logout", destroy_emp_session_path, method: :delete %>
   <%= form_with model: Challenge do |form|%>
-    <%=form.text_field :title, placeholder: "Title"%>
-    <%=form.text_field :description, placeholder: "desciption"%>
-    <%=form.text_field :tag_name, placeholder: "Tag"%>
-    <%=form.hidden_field :emp_id, value:current_emp.id%>
-    <%=form.submit "Add Challenges"%>
+    <div class="row mt-5 ml-2 mb-5">
+      <div class="col"><b>Title</b>
+         <%=form.text_field :title, placeholder: "Title", class: "form-control"%>
+      </div>
+      <div class="col"><b>Description</b>
+         <%=form.text_field :desciption, placeholder: "Description", class: "form-control"%>
+      </div>
+      <div class="col"><b>Tag</b>
+         <%=form.text_field :tag, placeholder: "Tag", class: "form-control"%>
+      </div>
+         <%=form.hidden_field :emp_id, value: current_emp.id%>
+      <div class="col mt-4">
+         <%=form.submit "Add Challenge", class: "btn btn-primary"%>
+      </div>
+    </div>
   <% end %>
-<% else %>
-<%= link_to "login", new_emp_session_path, class: "text-center"%>
 <% end %>
 <h1>Challenges</h1>
 <table>
@@ -19,7 +47,8 @@
       <th>Description</th>
       <th>Emp</th>
       <th>Tags</th>
-      <th colspan="4"></th>
+      <th>Votes</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -27,12 +56,19 @@
     <% @challenges.each do |challenge| %>
       <tr>
         <td><%= challenge.title %></td>
+        <td><% if challenge.is_liked(current_emp).present? %>
+                <%= link_to "Downvote", vote_path(challenge.is_liked(current_emp)), method: :delete, remote: :true %>
+            <% else %>
+                <%= link_to "Upvote", challenge_votes_path(challenge), method: :post, remote: :true %>
+            <% end %>
+        </td>
         <td><%= challenge.description %></td>
-        <td><%= challenge.emp_id %></td>
+        <td><p>EO<%= challenge.emp_id %></p></td>
         <td><% challenge.tags.each do |tag| %>
                 <%= tag.name %>
             <% end %>
         </td>
+        <td><%= challenge.votes.count %>
         <td><%= link_to 'Show', challenge %></td>
         <% if current_emp %>
           <%if current_emp.id == challenge.emp_id%>
@@ -46,8 +82,6 @@
 </table>
 
 <br>
-
-<%= link_to "login", new_emp_session_path, class: "text-center"%>
 
 <div class="footer">
    @copyright 2021 Navin Ojha
