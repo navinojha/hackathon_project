@@ -4,9 +4,3 @@
     <%= link_to "login", new_emp_session_path%>
 <% end %>
 
-<%=form_with model: Challenge do |form|%>
-<%=form.text_field :title, placeholder: "Title"%> <br>
-<%=form.text_field :description, placeholder: "desciption"%><br>
-<%=form.text_field :emp_id, value:current_emp.empid%><br>
-<%=form.submit "Add"%>
-<% end %>
