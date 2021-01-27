@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+Tags.create(name: "Arrays")
+Tags.create(name: "Dynamic Programming")
+Tags.create(name: "Recursion")
+Tags.create(name: "Stack")
+Tags.create(name: "Queue")
+Tags.create(name: "Linked List")
+Tags.create(name: "Graphs")
+Tags.create(name: "String")
