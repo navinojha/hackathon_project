@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   # GET /challenges
   # GET /challenges.json
   def index
-    @challenges = Challenge.all
+    @challenges = Challenge.order(params[:sort])
   end
 
   # GET /challenges/1

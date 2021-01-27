@@ -7,11 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-Tags.create(name: "Arrays")
-Tags.create(name: "Dynamic Programming")
-Tags.create(name: "Recursion")
-Tags.create(name: "Stack")
-Tags.create(name: "Queue")
-Tags.create(name: "Linked List")
-Tags.create(name: "Graphs")
-Tags.create(name: "String")
+t = Tags.new
+t.create(name:"Array")
+t.create(name:"Stack")
+t.create(name:"Recursion")
+t.create(name:"String")

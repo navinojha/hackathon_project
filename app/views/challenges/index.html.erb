@@ -44,15 +44,15 @@
   <h1>Challenges</h1>
   <table>
       <tr>
-        <th>Challenge Id</th>
-        <th>Title</th>
+        <th><%= link_to "Challenge Id", :sort => "id" %></th>
+        <th><%= link_to "Title", :sort => "title" %></th>
         <th>Votes</th>
         <th>Collaborate</th>
         <th>Description</th>
         <th>Employee</th>
         <th>Tags</th> 
-        <th>Votes Count</th>
-        <th>Created At</th>
+        <th><%= link_to "Votes Count" %></th>
+        <th><%= link_to "Created At", :sort => "created_at" %></th>
         <th>Updated At</th>
       </tr>
 
