@@ -41,27 +41,45 @@
 <% end %>
 <h1>Challenges</h1>
 <table>
-  <thead>
     <tr>
+      <th>Challenge Id</th>
       <th>Title</th>
-      <th>Description</th>
-      <th>Emp</th>
-      <th>Tags</th>
       <th>Votes</th>
-      <th colspan="2"></th>
+      <th>Collaborate</th>
+      <th>Description</th>
+      <th>Employee</th>
+      <th>Tags</th> 
+      <th>Votes Count</th>
+      <th>Created At</th>
+      <th>Updated At</th>
     </tr>
-  </thead>
 
-  <tbody>
     <% @challenges.each do |challenge| %>
       <tr>
+        <td><%= challenge.id%>
         <td><%= challenge.title %></td>
+        <% if current_emp %>
         <td><% if challenge.is_liked(current_emp).present? %>
-                <%= link_to "Downvote", vote_path(challenge.is_liked(current_emp)), method: :delete, remote: :true %>
+                 <%=link_to vote_path(challenge.is_liked(current_emp)), method: :delete, remote: :true do%>
+                  <i class="fa fa-minus-circle text-dark" aria-hidden="true"></i>
+                 <%end%>
             <% else %>
-                <%= link_to "Upvote", challenge_votes_path(challenge), method: :post, remote: :true %>
-            <% end %>
+            <%= link_to challenge_votes_path(challenge), method: :post, remote: :true do %>
+                  <i class="fa fa-plus-circle text-dark" aria-hidden="true"></i>
+            <%end %>  
+            <% end %> 
         </td>
+        <td><% if challenge.is_collaboration(current_emp).present? %>
+                <%= link_to collaboration_path(challenge.is_collaboration(current_emp)), method: :delete, remote: :true do %>
+                  <i class="fa fa-check fa-lg text-dark" aria-hidden="true"></i>
+                <% end %>
+              <% else %>
+                <%= link_to challenge_collaborations_path(challenge), method: :post, remote: :true do %>
+                  <i class="fa fa-times text-dark" aria-hidden="true"></i>
+                <% end %>
+              <% end %>
+        </td>
+        <% end %>
         <td><%= challenge.description %></td>
         <td><p>EO<%= challenge.emp_id %></p></td>
         <td><% challenge.tags.each do |tag| %>
@@ -69,16 +87,11 @@
             <% end %>
         </td>
         <td><%= challenge.votes.count %>
-        <td><%= link_to 'Show', challenge %></td>
-        <% if current_emp %>
-          <%if current_emp.id == challenge.emp_id%>
-            <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
-            <td><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <%end%>  
-        <% end %>        
+        <td><%= challenge.created_at%>
+        <td><%= challenge.updated_at%>
+                 
       </tr>
     <% end %>
-  </tbody>
 </table>
 
 <br>

@@ -13,7 +13,7 @@
 
 .footer {
     position: absolute;
-    bottom: 1em;
+    bottom: 0;
     width:100%;
     text-align: center;
     background-color: black;
@@ -24,6 +24,23 @@
     margin-right: 20px;
 }
 
+h1 {
+    margin-left: 50px;
+}
+
 .text-center {
    text-align: center;
+}
+
+table, td, th {
+    border: 2px solid black;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+th {
+    background-color: black;
+    color: white;
 }
