@@ -4,7 +4,11 @@ class ChallengesController < ApplicationController
   # GET /challenges
   # GET /challenges.json
   def index
-    @challenges = Challenge.order(params[:sort])
+    if params[:sort] == "votes"      
+      @challenges = Challenge.all.sort_by { |challenge| challenge.votes.count }.reverse
+    else
+      @challenges = Challenge.order(params[:sort])
+    end
   end
 
   # GET /challenges/1
@@ -25,7 +29,7 @@ class ChallengesController < ApplicationController
   # POST /challenges.json
   def create
     #@challenge = Challenge.new(challenge_params)
-    @challenge = current_emp.challenges.build(title: params[:challenge][:title],description: params[:challenge][:title])
+    @challenge = current_emp.challenges.build(title: params[:challenge][:title],description: params[:challenge][:description])
 
     respond_to do |format|
       if @challenge.save
@@ -34,7 +38,7 @@ class ChallengesController < ApplicationController
         tag_array.each do |tag_name|
           @challenge.tags.create(name: tag_name)
         end
-        format.html { redirect_to @challenge, notice: 'Challenge was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Challenge was successfully created.' }
         format.json { render :show, status: :created, location: @challenge.tags }
       else
         format.html { render :new }

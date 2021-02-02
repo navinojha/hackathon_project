@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<a class="navbar-brand" href="#">Home</a>
+<a class="navbar-brand"><%= link_to "Home", root_path %></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarText">
   <ul class="navbar-nav mr-auto">
     <li class="nav-item active">
-      <a class="nav-link ml-2" href="#">Hackthon<span class="sr-only">(current)</span></a>
+      <a class="nav-link ml-2">Hackthon<span class="sr-only">(current)</span></a>
     </li>
   </ul>
   <span class="navbar-text">
@@ -29,9 +29,11 @@
       <div class="col"><b>Description</b>
          <%=form.text_field :description, placeholder: "Description", class: "form-control"%>
       </div>
+     
       <div class="col mt-4 form-control"><b>Tag</b>
          <%=form.select :tag, ['Array','Dynamic Programming','String','Recursion','Queue','Linkedlist','Graphs','Stack','Rails','Ruby'], placeholder: "Tag", class: "form-group"%>
       </div>
+      
          <%=form.hidden_field :emp_id, value: current_emp.id%>
       <div class="col mt-4">
          <%=form.submit "Add Challenge", class: "btn btn-primary"%>
@@ -51,7 +53,7 @@
         <th><%= link_to "Description" %></th>
         <th><%= link_to "Employee" %></th>
         <th><%= link_to "Tags" %></th> 
-        <th><%= link_to "Votes Count" %></th>
+        <th><%= link_to "Votes Count", :sort => "votes" %></th>
         <th><%= link_to "Created At", :sort => "created_at" %></th>
         <th><%= link_to "Updated At", :sort => "updated_at" %></th>
       </tr>

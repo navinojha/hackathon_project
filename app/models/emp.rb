@@ -1,7 +1,7 @@
 class Emp < ApplicationRecord
-  has_many :challenges
-  has_many :votes
-  has_many :collaborations
+  has_many :challenges, dependent: :destroy
+  has_many :votes, dependent: :destroy
+  has_many :collaborations, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,6 +9,7 @@ class Emp < ApplicationRecord
   attr_writer :login
 
   validates :empid , presence: true, uniqueness: {case_sensitive:false}
+  validates_presence_of :empid, :email, :password, :password_confirmation
   def login
     @login || self.empid ||self.email
   end  

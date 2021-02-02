@@ -2,6 +2,7 @@ class Challenge < ApplicationRecord
   belongs_to :emp
   has_many :tags, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :collaborations, dependent: :destroy
 
   validates_presence_of :title, :description
 
