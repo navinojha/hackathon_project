@@ -1,4 +1,4 @@
-# README
+# How to Run the Project on Your Machine
 
 ##### Prerequisites
 
@@ -8,7 +8,7 @@ The setups steps expect following tools installed on the system.
 - Ruby [2.6.6](https://github.com/organization/project-name/blob/master/.ruby-version#L1)
 - Rails [6.1.2](https://github.com/organization/project-name/blob/master/Gemfile#L12)
 
-##### 1. Check out the repository
+##### 1. Clone out the repository
 
 ```bash
 git clone https://github.com/navinojha/hackathon_project.git
