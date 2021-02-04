@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Tag, type: :model do
   before(:each) do
-    @current_user = Emp.create(empid: "E02", email: "dineshmbps1@gmail.com", password: "123456", password_confirmation: "123456")
+    @current_user = Emp.create(empid: "E02", email: "navin1@gmail.com", password: "123456", password_confirmation: "123456")
   end
 
   after(:each) do
@@ -12,36 +12,36 @@ RSpec.describe Tag, type: :model do
   describe "association of Tags" do
     it { should belong_to(:challenge) }
   end
+
   describe "validation of Tags" do
     it { should validate_presence_of(:name) }
   end
-  context "Tag adding" do
+
+  describe "Adding Tag" do
     it "should be invalid if tag is being added and challenge does not exist" do
-      sample_tag = Tag.new(name: "Test training")
-      expect(sample_tag).to_not be_valid
+      new_tag = Tag.new(name: "New training")
+      expect(new_tag).to_not be_valid
     end
   end
-  context "adding and deleting tag with challenge" do
-    it "should create tag on creation of new Challenge" do
-      #test_user = Emp.create(empid: "E02", email: "dineshmbps1@gmail.com", password: "123456", password_confirmation: "123456")
-      sample_challenge = @current_user.challenges.build(title: "challenge_title", description: "challenge description")
-      if sample_challenge.save
-        sample_tag = sample_challenge.tags.create(name: "Test_tag")
+
+  describe "adding and deleting tag with challenge" do
+    it "should be able to create tag on creation of new Challenge" do
+      new_challenge = @current_user.challenges.build(title: "challenge_title", description: "challenge description")
+      if new_challenge.save
+        new_tag = new_challenge.tags.create(name: "Test_tag")
       end
       expect(Tag.last.name).to eql "Test_tag"
-      #@current_user.destroy
     end
-    it "should delete tag on deletetion of new Challenge" do
-      #test_user = Emp.create(empid: "E02", email: "dineshmbps1@gmail.com", password: "123456", password_confirmation: "123456")
-      sample_challenge = @current_user.challenges.build(title: "challenge_title", description: "challenge description")
-      if sample_challenge.save
-        sample_challenge.tags.create(name: "Test_tag")
+
+    it "should be able to delete tag on deletetion of new Challenge" do
+      new_challenge = @current_user.challenges.build(title: "challenge_title", description: "challenge description")
+      if new_challenge.save
+        new_challenge.tags.create(name: "Test_tag")
       end
-      if sample_challenge.destroy
-        chec_tag = Tag.last
-        expect(chec_tag).to be nil
+      if new_challenge.destroy
+        test_tag = Tag.last
+        expect(test_tag).to be nil
       end
-      #@current_user.destroy
     end
   end
 end

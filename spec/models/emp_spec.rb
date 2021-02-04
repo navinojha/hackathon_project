@@ -56,11 +56,11 @@ RSpec.describe Emp, type: :model do
     describe "it should remove employee" do
         it "should destroy user" do
           new_user = Emp.create(empid: "E01", email: "navin@gmail.com", password: "123456", password_confirmation: "123456")
-          res = "not deleted"
+          ans = "false"
           if new_user.destroy
-            res = "deleted"
+            ans = "true"
           end
-          expect(res).to eq "deleted"
+          expect(ans).to eq "true"
         end
     end
 end

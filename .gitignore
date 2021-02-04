@@ -19,6 +19,8 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
+Gemfile.lock, .ruby-version, .ruby-gemset
+
 # Ignore uploaded files in development.
 /storage/*
 !/storage/.keep

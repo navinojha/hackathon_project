@@ -1,35 +1,30 @@
 class ChallengesController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_challenge, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_emp!, only:[:edit, :update, :destroy]
-  # GET /challenges
-  # GET /challenges.json
+  
   def index
-    if params[:sort] == "votes"      
-      @challenges = Challenge.all.sort_by { |challenge| challenge.votes.count }.reverse
-    else
-      @challenges = Challenge.order(params[:sort])
-      @challenges = Challenge.paginate(page: params[:page], per_page: 5)
-    end
+    # if params[:sort] == "votes"      
+    #   @challenges = Challenge.all.sort_by { |challenge| challenge.votes.count }.reverse
+    # else
+      @challenges = Challenge.order(sort_column+ " " + sort_direction).paginate(page: params[:page], per_page: 5)
+    #@challenges2 = Challenge.paginate(page: params[:page], per_page: 5)
   end
 
-  # GET /challenges/1
-  # GET /challenges/1.json
+ 
   def show
   end
 
-  # GET /challenges/new
   def new
     @challenge = Challenge.new
   end
 
-  # GET /challenges/1/edit
+  
   def edit
   end
 
-  # POST /challenges
-  # POST /challenges.json
+
   def create
-    #@challenge = Challenge.new(challenge_params)
     @challenge = current_emp.challenges.build(title: params[:challenge][:title],description: params[:challenge][:description])
 
     respond_to do |format|
@@ -81,5 +76,13 @@ class ChallengesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def challenge_params
       params.require(:challenge).permit(:title, :description, :emp_id, :tag)
+    end
+
+    def sort_column
+      params[:sort] || "title"
+    end
+    
+    def sort_direction
+      params[:direction] || "asc"
     end
 end

@@ -10,7 +10,7 @@ class VotesController < ApplicationController
                 redirect_to root_path 
                 flash[:success]= "Voted"
             else 
-                flash[:notice] = "something went wrong"
+                flash[:danger] = "something went wrong"
             end
         else
             redirect_to root_path 

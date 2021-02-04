@@ -50,16 +50,16 @@
   <h1>Challenges</h1>
   <table>
       <tr class="header">
-        <th><%= link_to "Challenge Id", :sort => "id" %></th>
-        <th><%= link_to "Title", :sort => "title" %></th>
+        <th><%= sortable "id" %></th>
+        <th><%= sortable "title" %></th>
         <th><%= link_to "Votes"%></th>
         <th><%= link_to "Collaborate" %></th>
         <th><%= link_to "Description" %></th>
         <th><%= link_to "Employee" %></th>
         <th><%= link_to "Tags" %></th> 
-        <th><%= link_to "Votes Count", :sort => "votes" %></th>
-        <th><%= link_to "Created At", :sort => "created_at" %></th>
-        <th><%= link_to "Updated At", :sort => "updated_at" %></th>
+        <th><%= sortable "votes", "Votes Count" %></th>
+        <th><%= sortable "created_at" %></th>
+        <th><%= sortable "updated_at" %></th>
       </tr>
 
       <% @challenges.each do |challenge| %>
@@ -69,22 +69,22 @@
           <% if current_emp %>
           <td><% if challenge.is_liked(current_emp).present? %>
                   <%=link_to vote_path(challenge.is_liked(current_emp)), method: :delete, remote: :true do%>
-                    <i class="fa fa-minus-circle text-dark" aria-hidden="true"></i>
+                    <i class="fa fa-minus-circle fa-2x text-dark" aria-hidden="true"></i>
                   <%end%>
               <% else %>
               <%= link_to challenge_votes_path(challenge), method: :post, remote: :true do %>
-                    <i class="fa fa-plus-circle text-dark" aria-hidden="true"></i>
+                    <i class="fa fa-plus-circle fa-2x text-dark" aria-hidden="true"></i>
               <%end %>  
               <% end %> 
           </td>
           <td><% if challenge.is_collaboration(current_emp).present? %>
                   <%= link_to collaboration_path(challenge.is_collaboration(current_emp)), method: :delete, remote: :true do %>
-                    <i class="fa fa-check fa-lg text-dark" aria-hidden="true"></i><%= current_emp.empid %>
+                    <i class="fa fa-check fa-2x text-dark" aria-hidden="true"></i><%= current_emp.empid %>
 
                   <% end %>
                 <% else %>
                   <%= link_to challenge_collaborations_path(challenge), method: :post, remote: :true do %>
-                    <i class="fa fa-times text-dark" aria-hidden="true"></i>
+                    <i class="fa fa-times fa-2x text-dark" aria-hidden="true"></i>
                   <% end %>
                 <% end %>
           </td>
@@ -95,9 +95,9 @@
                   <%= tag.name %>
               <% end %>
           </td>
-          <td><%= challenge.votes.count%>
-          <td><%= challenge.created_at%>
-          <td><%= challenge.updated_at%>
+          <td><%= challenge.votes.count%></td>
+          <td><%= challenge.created_at.strftime("%d %B %y %A") %></td>
+          <td><%= challenge.updated_at.strftime("%d %B %y %A") %></td>
                   
         </tr>
       <% end %>
