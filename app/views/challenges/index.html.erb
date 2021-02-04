@@ -21,7 +21,7 @@
 </nav>
 
 <% flash.each do |type,msg| %>
-      <div class="alert alert-info"><%= msg %></div>
+      <div class="alert alert-info"><%= msg %></div>  
 <% end %>
 
 <%if current_emp %>
@@ -103,6 +103,9 @@
       <% end %>
   </table>
 <% end %>
+
+
+<div class="center"><%= will_paginate(@challenges, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) if current_emp %></div>
 
 <br>
 

@@ -8,6 +8,7 @@ class ChallengesController < ApplicationController
       @challenges = Challenge.all.sort_by { |challenge| challenge.votes.count }.reverse
     else
       @challenges = Challenge.order(params[:sort])
+      @challenges = Challenge.paginate(page: params[:page], per_page: 5)
     end
   end
 

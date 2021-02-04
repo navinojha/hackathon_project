@@ -8,7 +8,7 @@ class VotesController < ApplicationController
             if @vote.save
                 #flash[:notice]="voted"
                 redirect_to root_path 
-                flash[:notice]= "Voted"
+                flash[:success]= "Voted"
             else 
                 flash[:notice] = "something went wrong"
             end
