@@ -7,12 +7,14 @@ class VotesController < ApplicationController
         if current_emp.id != @challenge.emp.id
             if @vote.save
                 #flash[:notice]="voted"
-                redirect_to root_path notice: "Voted"
+                redirect_to root_path 
+                flash[:notice]= "Voted"
             else 
                 flash[:notice] = "something went wrong"
             end
         else
-            redirect_to root_path notice: "You cannot upvote your challenge"
+            redirect_to root_path 
+            flash[:notice]= "You cannot upvote your challenge"
         end
     end
 

@@ -20,6 +20,10 @@
 </div>
 </nav>
 
+<% flash.each do |type,msg| %>
+      <div class="alert alert-info"><%= msg %></div>
+<% end %>
+
 <%if current_emp %>
   <%= form_with model: Challenge do |form|%>
     <div class="row mt-5 ml-2 mb-5">

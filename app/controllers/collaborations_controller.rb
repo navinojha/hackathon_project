@@ -8,9 +8,9 @@ class CollaborationsController < ApplicationController
             if @collaboration.save
                 #flash[:notice]="voted"
                 redirect_to root_path 
-                flash[:notice] = "Collaborated"
+                flash.now[:notice] = "Collaborated"
             else 
-                flash[:notice] = "something went wrong"
+                flash.now[:notice] = "something went wrong"
             end
         else
             redirect_to root_path 
