@@ -4,10 +4,10 @@ class ChallengesController < ApplicationController
   before_action :authenticate_emp!, only:[:edit, :update, :destroy]
   
   def index
-    # if params[:sort] == "votes"      
-    #   @challenges = Challenge.all.sort_by { |challenge| challenge.votes.count }.reverse
-    # else
-      @challenges = Challenge.order(sort_column+ " " + sort_direction).paginate(page: params[:page], per_page: 5)
+    #  if params[:sortable] == "votes"  
+    #     @challenges = Challenge.all.sort_by { |challenge| challenge.votes.count }.reverse   
+    #  else
+    @challenges = Challenge.order(sort_column+ " " + sort_direction).paginate(page: params[:page], per_page: 5)
     #@challenges2 = Challenge.paginate(page: params[:page], per_page: 5)
   end
 
