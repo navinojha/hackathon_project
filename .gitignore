@@ -19,7 +19,9 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
-#Gemfile.lock, .ruby-version, .ruby-gemset
+/Gemfile.lock
+.ruby-version
+.ruby-gemset
 
 # Ignore uploaded files in development.
 /storage/*
@@ -37,4 +39,4 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
-.yarn.lock
+/yarn.lock
