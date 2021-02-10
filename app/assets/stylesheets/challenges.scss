@@ -7,6 +7,7 @@
     padding: 0;
 }
 
+
 #nav-top {
     margin-top: 1em;
 }
@@ -33,27 +34,27 @@ h1 {
 }
 
 table, td, th {
-    border: 2px solid black;
+    border: 3px solid black;
     margin-top: 50px;
     margin-left: 50px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-// th {
-//     background-color: black;
-//     color: white;
-// }
-
-.header {
-    text-decoration: none;
-    color:white;
+th {
     background-color: black;
     color: white;
 }
+
 
 .center {
     margin-top: 20px;
     position: relative;
     margin-left: 45em;
  }
+
+ #head th a {
+     color:white;
+ }
+
+

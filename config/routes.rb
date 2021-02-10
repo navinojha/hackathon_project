@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'emps/show'
   resources :challenges do
     resources :votes, only: [:create, :destroy], shallow: true
     resources :collaborations, only: [:create, :destroy], shallow: true

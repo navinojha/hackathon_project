@@ -11,9 +11,16 @@
 </p>
 
 <p>
-  <strong>Emp:</strong>
+  <strong>Tags:</strong>
+  <% @challenge.tags.each do |tag| %>
+     <%= tag.name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
   <%= @challenge.emp_id %>
 </p>
 
-<%= link_to 'Edit', edit_challenge_path(@challenge) %> |
-<%= link_to 'Back', challenges_path %>
+<%= link_to 'Edit', edit_challenge_path(@challenge), class:"btn btn-dark" %> |
+<%= link_to 'Back', challenges_path, class: "btn btn-dark" %>

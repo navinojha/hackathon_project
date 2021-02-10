@@ -1,13 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<a class="navbar-brand"><%= link_to "Home", root_path %></a>
+<a class="navbar-brand"><%= link_to "Home", root_path, class:"text-light" %></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarText">
   <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link ml-2">Hackthon<span class="sr-only">(current)</span></a>
-    </li>
+    
   </ul>
   <span class="navbar-text">
     <% if current_emp %>
@@ -31,16 +29,16 @@
          <%=form.text_field :title, placeholder: "Title", class: "form-control"%>
       </div>
       <div class="col"><b>Description</b>
-         <%=form.text_field :description, placeholder: "Description", class: "form-control"%>
+         <%=form.text_field :description, placeholder: "Description", class: "form-control", :minlength => 5 %>
       </div>
      
       <div class="col mt-4 form-control"><b>Tag</b>
-         <%=form.select :tag, ['Array','Dynamic Programming','String','Recursion','Queue','Linkedlist','Graphs','Stack','Rails','Ruby'], placeholder: "Tag", class: "form-group"%>
+         <%=form.select :tag, ['Array','Dynamic','String','Recursion','Queue','Linkedlist','Graphs','Stack','Rails','Ruby'], placeholder: "Tag", class: "p-4"%>
       </div>
       
          <%=form.hidden_field :emp_id, value: current_emp.id%>
       <div class="col mt-4">
-         <%=form.submit "Add Challenge", class: "btn btn-primary"%>
+         <%=form.submit "Add Challenge", class: "btn btn-primary bg-dark"%>
       </div>
     </div>
   <% end %>
@@ -48,26 +46,25 @@
 
 <% if current_emp %>
   <h1>Challenges</h1>
-  <table>
-      <tr class="header">
-        <th><%= sortable "id" %></th>
-        <th><%= sortable "title" %></th>
-        <th><%= link_to "Votes"%></th>
-        <th><%= link_to "Collaborate" %></th>
-        <th><%= link_to "Description" %></th>
-        <th><%= link_to "Employee" %></th>
-        <th><%= link_to "Tags" %></th> 
-        <th><%= link_to "Votes Count" %></th>
-        <th><%= sortable "created_at" %></th>
-        <th><%= sortable "updated_at" %></th>
-      </tr>
-
+  <table style="width:1720px; height:450px">
+    <tr>
+      <th><%= sortable "id" %></th>
+      <th><%= sortable "title" %></th>
+      <th><%= sortable "votes" %></th>
+      <th><%= sortable "collaboration" %></th>
+      <th><%= sortable "description" %></th>
+      <th><%= sortable "employee" %></th>
+      <th><%= sortable "tag" %></th> 
+      <th><%= sortable "votes", "Votes Count" %></th>
+      <th><%= sortable "created_at"%></th>
+      <th><%= sortable "updated_at"%></th>
+    </tr>
       <% @challenges.each do |challenge| %>
         <tr>
-          <td><%= challenge.id%>
-          <td><%= challenge.title %></td>
+          <td style="width:150px; height:80px"><%= challenge.id%>
+          <td style="width:150px; height:80px"><%= link_to challenge.title.truncate_words(4), challenge_path(challenge), class:"text-dark" %></td>
           <% if current_emp %>
-          <td><% if challenge.is_liked(current_emp).present? %>
+          <td style="width:150px; height:80px"><% if challenge.is_liked(current_emp).present? %>
                   <%=link_to vote_path(challenge.is_liked(current_emp)), method: :delete, remote: :true do%>
                     <i class="fa fa-minus-circle fa-2x text-dark" aria-hidden="true"></i>
                   <%end%>
@@ -77,7 +74,7 @@
               <%end %>  
               <% end %> 
           </td>
-          <td><% if challenge.is_collaboration(current_emp).present? %>
+          <td style="width:150px; height:80px"><% if challenge.is_collaboration(current_emp).present? %>
                   <%= link_to collaboration_path(challenge.is_collaboration(current_emp)), method: :delete, remote: :true do %>
                     <i class="fa fa-check fa-2x text-dark" aria-hidden="true"></i><%= current_emp.empid %>
 
@@ -89,7 +86,7 @@
                 <% end %>
           </td>
           <% end %>
-          <td><%= challenge.description %></td>
+          <td><%= challenge.description.truncate_words(5) %></td>
           <td><p>EO<%= challenge.emp_id %></p></td>
           <td><% challenge.tags.each do |tag| %>
                   <%= tag.name %>
