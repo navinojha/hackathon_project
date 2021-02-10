@@ -7,7 +7,6 @@ class VotesController < ApplicationController
         if current_emp.id != @challenge.emp.id
             if @vote.save
                 emp_mailer = EmpMailer.vote_confirmation(Emp.last)
-                byebug
                 emp_mailer.deliver()
                 redirect_to root_path 
                 flash[:success]= "Voted"
