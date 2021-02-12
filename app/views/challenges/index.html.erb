@@ -45,26 +45,29 @@
 <% end %>
 
 <% if current_emp %>
-  <h1>Challenges</h1>
-  <table style="width:1720px; height:450px">
-    <tr>
-      <th><%= sortable "id" %></th>
-      <th><%= sortable "title" %></th>
-      <th><%= sortable "votes" %></th>
-      <th><%= sortable "collaboration" %></th>
-      <th><%= sortable "description" %></th>
-      <th><%= sortable "employee" %></th>
-      <th><%= sortable "tag" %></th> 
-      <th><%= sortable "votes", "Votes Count" %></th>
-      <th><%= sortable "created_at"%></th>
-      <th><%= sortable "updated_at"%></th>
-    </tr>
+  <h1>CHALLENGES</h1>
+  <table class = "table table-hover text-center mt-3 ml-2">
+   <thead class="align-center thead-dark" style="color:white">
+      <tr class="align-center">
+        <th><%= sortable "id" %></th>
+        <th><%= sortable "title" %></th>
+        <th><%= sortable "votes" %></th>
+        <th><%= sortable "collaboration" %></th>
+        <th><%= sortable "description" %></th>
+        <th><%= sortable "employee" %></th>
+        <th><%= sortable "tag" %></th> 
+        <th><%= sortable "votes", "Votes Count" %></th>
+        <th><%= sortable "created_at"%></th>
+        <th><%= sortable "updated_at"%></th>
+      </tr>
+    <thead>
+    <tbody class="align-center">
       <% @challenges.each do |challenge| %>
         <tr>
-          <td style="width:150px; height:80px"><%= challenge.id%>
-          <td style="width:150px; height:80px"><%= link_to challenge.title.truncate_words(4), challenge_path(challenge), class:"text-dark" %></td>
+          <td><%= challenge.id%>
+          <td><%= link_to challenge.title.truncate_words(4), challenge_path(challenge), class:"text-dark" %></td>
           <% if current_emp %>
-          <td style="width:150px; height:80px"><% if challenge.is_liked(current_emp).present? %>
+          <td><% if challenge.is_liked(current_emp).present? %>
                   <%=link_to vote_path(challenge.is_liked(current_emp)), method: :delete, remote: :true do%>
                     <i class="fa fa-minus-circle fa-2x text-dark" aria-hidden="true"></i>
                   <%end%>
@@ -74,16 +77,20 @@
               <%end %>  
               <% end %> 
           </td>
-          <td style="width:150px; height:80px"><% if challenge.is_collaboration(current_emp).present? %>
-                  <%= link_to collaboration_path(challenge.is_collaboration(current_emp)), method: :delete, remote: :true do %>
-                    <i class="fa fa-check fa-2x text-dark" aria-hidden="true"></i><%= current_emp.empid %>
-
+          <td>
+            <% if challenge.is_collaboration(current_emp).present? %>
+                    <%= link_to collaboration_path(challenge.is_collaboration(current_emp)), method: :delete, remote: :true do %>
+                      <i class="fa fa-check fa-2x text-dark" aria-hidden="true"></i>
+                    <% end %>
+      
+                  <% else %>
+                    <%= link_to challenge_collaborations_path(challenge), method: :post, remote: :true do %>
+                      <i class="fa fa-times fa-2x text-dark" aria-hidden="true"></i>
                   <% end %>
-                <% else %>
-                  <%= link_to challenge_collaborations_path(challenge), method: :post, remote: :true do %>
-                    <i class="fa fa-times fa-2x text-dark" aria-hidden="true"></i>
-                  <% end %>
-                <% end %>
+              <% end %>
+               <% challenge.collaborations.each do |collab_request| %>
+                      E0<%= collab_request.emp_id %>
+               <% end %>
           </td>
           <% end %>
           <td><%= challenge.description.truncate_words(5) %></td>
@@ -98,6 +105,7 @@
                   
         </tr>
       <% end %>
+    </tbody>
   </table>
 <% end %>
 

@@ -25,20 +25,16 @@ class ChallengesController < ApplicationController
 
 
   def create
-    @challenge = current_emp.challenges.build(title: params[:challenge][:title],description: params[:challenge][:description])
-
-    respond_to do |format|
-      if @challenge.save
-        tag_string = params[:challenge][:tag]
-        tag_array = tag_string.split(",")
-        tag_array.each do |tag_name|
-          @challenge.tags.create(name: tag_name)
-        end
-        format.html { redirect_to root_path, notice: 'Challenge was successfully created.' }
-        format.json { render :show, status: :created, location: @challenge.tags }
-      else
+    @challenge = ChallengeCreator.new(params).execute(current_emp)
+    if @challenge
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: "Challenge was successfully created." }
+        #format.json { render :show, status: :created, location: @challenge }
+      end
+    else
+      respond_to do |format|
         format.html { render :new }
-        format.json { render json: @challenge.errors, status: :unprocessable_entity }
+        #format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
   end
